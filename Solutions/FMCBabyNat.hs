@@ -54,7 +54,9 @@ odd = undefined
 -- It behaves like subtraction, except that it returns 0
 -- when "normal" subtraction would return a negative number.
 monus :: Nat -> Nat -> Nat
-monus = undefined
+monus O n = O
+monus n O = n
+monus (S n) (S m) = monus n m
 
 (-*) :: Nat -> Nat -> Nat
 (-*) = monus
@@ -73,7 +75,6 @@ infixl 7 *
 
 -- exponentiation
 (^) :: Nat -> Nat -> Nat
---(^) = undefined
 n ^ O = S O
 n ^ (S m) = n ^ m * n 
 
