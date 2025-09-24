@@ -44,7 +44,9 @@ pred (S n) = n
 
 -- Output: O means False, S O means True
 even :: Nat -> Nat
-even = undefined 
+even O = S O
+even (S O) = O
+even (S (S n)) = even n 
 
 odd :: Nat -> Nat
 odd = undefined
@@ -82,7 +84,9 @@ n ^ (S m) = n ^ m * n
 
 -- quotient
 (/) :: Nat -> Nat -> Nat
-(/) = undefined
+n / S O = n
+--(S n) / (S m) =  
+
 
 -- remainder
 (%) :: Nat -> Nat -> Nat
