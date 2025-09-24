@@ -63,6 +63,9 @@ monus = undefined
 (*) :: Nat -> Nat -> Nat
 --(*) = undefined
 n * O = O
+O * n = O
+S O * n = n
+n * S O = n
 n * (S x) = n * x + n
 
 
@@ -98,7 +101,8 @@ absDiff = undefined
 (|-|) = absDiff
 
 factorial :: Nat -> Nat
-factorial (S n) = factorial n * n
+factorial O = one
+factorial (S n) = factorial n * S n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
