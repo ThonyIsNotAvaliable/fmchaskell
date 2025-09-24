@@ -44,7 +44,7 @@ pred (S n) = n
 
 -- Output: O means False, S O means True
 even :: Nat -> Nat
-even = undefined
+even = undefined 
 
 odd :: Nat -> Nat
 odd = undefined
@@ -73,7 +73,9 @@ infixl 7 *
 
 -- exponentiation
 (^) :: Nat -> Nat -> Nat
-(^) = undefined
+--(^) = undefined
+n ^ O = S O
+n ^ (S m) = n ^ m * n 
 
 -- decide: infix? ? ^
 
