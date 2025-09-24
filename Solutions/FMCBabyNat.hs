@@ -98,7 +98,7 @@ absDiff = undefined
 (|-|) = absDiff
 
 factorial :: Nat -> Nat
-factorial = undefined
+factorial (S n) = factorial n * n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
