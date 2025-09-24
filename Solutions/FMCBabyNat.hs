@@ -34,11 +34,13 @@ infixl 6 +
 
 -- Output: O means False, S O means True
 isZero :: Nat -> Nat
-isZero = undefined
+isZero O = S O
+isZero n = O
 
 -- pred is the predecessor but we define zero's to be zero
 pred :: Nat -> Nat
-pred = undefined
+pred O = O
+pred (S n) = n
 
 -- Output: O means False, S O means True
 even :: Nat -> Nat
@@ -59,7 +61,10 @@ monus = undefined
 
 -- multiplication
 (*) :: Nat -> Nat -> Nat
-(*) = undefined
+--(*) = undefined
+n * O = O
+n * (S x) = n * x + n
+
 
 infixl 7 *
 
