@@ -129,9 +129,21 @@ factorial (S n) = factorial n * S n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
-sg = undefined
+sg O = O
+sg (S _) = S O
 
--- lo b a is the floor of the logarithm base b of a
+--lo b a is the floor of the logarithm base b of a
+loHelper :: Nat -> Nat -> Nat -> Nat -> Nat
+loHelper n m (S q) O = 
+  case (n ^ q) -* m of
+    O -> q
+    (S _) -> pred q
+loHelper n m q _ = loHelper n m (S q) (m -* (n ^ q))
+
+
 lo :: Nat -> Nat -> Nat
-lo = undefined
-
+lo n (S O) = S O
+lo O _ = undefined
+lo _ O = undefined
+lo (S O) (S (S _)) = undefined
+lo n m = loHelper n m zero one 
