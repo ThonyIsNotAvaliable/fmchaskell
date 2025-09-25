@@ -107,7 +107,10 @@ n / m = quotHelper n m n O
 -- and then define `devides` as a synonym to it
 -- again, outputs: O means False, S O means True
 (|||) :: Nat -> Nat -> Nat
-(|||) = undefined
+(|||) _ O     = O
+(|||) n m | ((m / n) * n) == m = S O
+(|||) _ _ = O
+
 
 -- x `absDiff` y = |x - y|
 -- (Careful here: this - is the actual minus operator we know from the integers!)
