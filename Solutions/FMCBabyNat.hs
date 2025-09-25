@@ -98,7 +98,9 @@ n / m = quotHelper n m n O
 
 -- remainder
 (%) :: Nat -> Nat -> Nat
-(%) = undefined
+(%) n O = undefined
+(%) n m | (n / m) == O = O
+(%) n m = n -* ((n / m) * m)
 
 -- divides
 -- just for a change, we start by defining the "symbolic" operator
