@@ -85,10 +85,18 @@ n ^ (S m) = n ^ m * n
 -- decide: infix? ? ^
 
 -- quotient
-(/) :: Nat -> Nat -> Nat
-n / S O = n
---(S n) / (S m) =  
 
+quotHelper :: Nat -> Nat -> Nat -> Nat -> Nat
+quotHelper n m O (S s) = s
+quotHelper n m l s  = 
+    if l == m 
+      then quotHelper n m (l -* m) (S (S s)) 
+      else quotHelper n m (l -* m) (S s)
+
+(/) :: Nat -> Nat -> Nat
+n / O = undefined
+n / S O = n
+n / m = quotHelper n m n O  
 
 -- remainder
 (%) :: Nat -> Nat -> Nat
