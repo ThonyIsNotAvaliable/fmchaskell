@@ -142,7 +142,7 @@ loHelper n m q _ = loHelper n m (S q) (m -* (n ^ q))
 
 
 lo :: Nat -> Nat -> Nat
-lo _ (S O) = S O
+lo (S _) (S O) = O
 lo O _ = undefined
 lo _ O = undefined
 lo (S O) (S (S _)) = undefined
