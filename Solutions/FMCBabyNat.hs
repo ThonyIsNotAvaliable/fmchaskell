@@ -85,18 +85,17 @@ n ^ (S m) = n ^ m * n
 -- decide: infix? ? ^
 
 -- quotient
-
-quotHelper :: Nat -> Nat -> Nat -> Nat -> Nat
-quotHelper _ _ O s =  s
-quotHelper n m l s = 
-  case m -* l of
-    O -> quotHelper n m (l -* m)  (S s)
-    (S _) -> quotHelper n m (l -* m)  s
-
 (/) :: Nat -> Nat -> Nat
 _ / O = undefined
 n / S O = n
-n / m = quotHelper n m n O  
+n / m = quot' n m n O
+  where
+    quot' _ _ O s =  s
+    quot' n m l s = 
+      case m -* l of
+        O -> quot' n m (l -* m)  (S s)
+        (S _) -> quot' n m (l -* m)  s
+    
 
 -- remainder
 (%) :: Nat -> Nat -> Nat
@@ -136,17 +135,15 @@ sg O = O
 sg (S _) = S O
 
 --lo b a is the floor of the logarithm base b of a
-loHelper :: Nat -> Nat -> Nat -> Nat -> Nat
-loHelper n m (S q) O = 
-  case (n ^ q) -* m of
-    O -> q
-    (S _) -> pred q
-loHelper n m q _ = loHelper n m (S q) (m -* (n ^ q))
-
-
 lo :: Nat -> Nat -> Nat
 lo (S _) (S O) = O
 lo O _ = undefined
-lo _ O = undefined
+lo _ O = S O
 lo (S O) (S (S _)) = undefined
-lo n m = loHelper n m zero one 
+lo n m = lo' n m zero one
+  where
+    lo' n m (S q) O = 
+      case (n ^ q) -* m of
+        O -> q
+        (S _) -> pred q
+    lo' n m q _ = lo' n m (S q) (m -* (n ^ q))     
