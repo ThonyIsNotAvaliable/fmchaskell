@@ -35,7 +35,7 @@ infixl 6 +
 -- Output: O means False, S O means True
 isZero :: Nat -> Nat
 isZero O = S O
-isZero n = O
+isZero _ = O
 
 -- pred is the predecessor but we define zero's to be zero
 pred :: Nat -> Nat
@@ -58,7 +58,7 @@ odd (S (S n)) = odd n
 -- It behaves like subtraction, except that it returns 0
 -- when "normal" subtraction would return a negative number.
 monus :: Nat -> Nat -> Nat
-monus O n = O
+monus O _ = O
 monus n O = n
 monus (S n) (S m) = monus n m
 
@@ -68,8 +68,8 @@ monus (S n) (S m) = monus n m
 -- multiplication
 (*) :: Nat -> Nat -> Nat
 --(*) = undefined
-n * O = O
-O * n = O
+_ * O = O
+O * _ = O
 S O * n = n
 n * S O = n
 n * (S x) = n * x + n
@@ -79,7 +79,7 @@ infixl 7 *
 
 -- exponentiation
 (^) :: Nat -> Nat -> Nat
-n ^ O = S O
+_ ^ O = S O
 n ^ (S m) = n ^ m * n 
 
 -- decide: infix? ? ^
@@ -92,13 +92,13 @@ quotHelper n m l s | m == l = quotHelper n m (l -* m) (S (S s))
 quotHelper n m l s = quotHelper n m (l -* m) (S s)
 
 (/) :: Nat -> Nat -> Nat
-n / O = undefined
+_ / O = undefined
 n / S O = n
 n / m = quotHelper n m n O  
 
 -- remainder
 (%) :: Nat -> Nat -> Nat
-(%) n O = undefined
+(%) _ O = undefined
 (%) n m | (n / m) == O = O
 (%) n m = n -* ((n / m) * m)
 
@@ -142,7 +142,7 @@ loHelper n m q _ = loHelper n m (S q) (m -* (n ^ q))
 
 
 lo :: Nat -> Nat -> Nat
-lo n (S O) = S O
+lo _ (S O) = S O
 lo O _ = undefined
 lo _ O = undefined
 lo (S O) (S (S _)) = undefined
