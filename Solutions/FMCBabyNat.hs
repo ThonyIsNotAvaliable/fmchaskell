@@ -87,11 +87,11 @@ n ^ (S m) = n ^ m * n
 -- quotient
 
 quotHelper :: Nat -> Nat -> Nat -> Nat -> Nat
-quotHelper n m O (S s) = s
-quotHelper n m l s  = 
-    if l == m 
-      then quotHelper n m (l -* m) (S (S s)) 
-      else quotHelper n m (l -* m) (S s)
+quotHelper n m O s =  s
+quotHelper n m l s = 
+  case l -* m of
+      S o -> quotHelper n m o (S s)
+      O ->  S s
 
 (/) :: Nat -> Nat -> Nat
 n / O = undefined
