@@ -87,9 +87,11 @@ n ^ (S m) = n ^ m * n
 -- quotient
 
 quotHelper :: Nat -> Nat -> Nat -> Nat -> Nat
-quotHelper n m O (S s) =  s
-quotHelper n m l s | m == l = quotHelper n m (l -* m) (S (S s))
-quotHelper n m l s = quotHelper n m (l -* m) (S s)
+quotHelper _ _ O s =  s
+quotHelper n m l s = 
+  case m -* l of
+    O -> quotHelper n m (l -* m)  (S s)
+    (S _) -> quotHelper n m (l -* m)  s
 
 (/) :: Nat -> Nat -> Nat
 _ / O = undefined
@@ -99,8 +101,10 @@ n / m = quotHelper n m n O
 -- remainder
 (%) :: Nat -> Nat -> Nat
 (%) _ O = undefined
-(%) n m | (n / m) == O = O
-(%) n m = n -* ((n / m) * m)
+(%) n m = 
+  case n / m of 
+    O -> O
+    _ -> n -* ((n / m) * m)
 
 -- divides
 -- just for a change, we start by defining the "symbolic" operator
@@ -109,8 +113,7 @@ n / m = quotHelper n m n O
 (|||) :: Nat -> Nat -> Nat
 (|||) O O     = S O
 (|||) _ O     = O
-(|||) n m | ((m / n) * n) == m = S O
-(|||) _ _ = O
+(|||) n m = isZero (m -* ((m / n) * n))
 
 
 -- x `absDiff` y = |x - y|
