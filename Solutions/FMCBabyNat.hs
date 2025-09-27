@@ -138,7 +138,7 @@ sg (S _) = S O
 lo :: Nat -> Nat -> Nat
 lo (S _) (S O) = O
 lo O _ = undefined
-lo _ O = S O
+lo _ O = O
 lo (S O) (S (S _)) = undefined
 lo n m = lo' n m zero one
   where
