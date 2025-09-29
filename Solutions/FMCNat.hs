@@ -180,7 +180,9 @@ divides = (<|>)
 -- x `dist` y = |x - y|
 -- (Careful here: this - is the real minus operator!)
 dist :: Nat -> Nat -> Nat
-dist = undefined
+dist O m = m
+dist n O = n
+dist (S n) (S m) = dist n m
 
 (|-|) = dist
 
