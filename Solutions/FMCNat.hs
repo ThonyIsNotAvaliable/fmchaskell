@@ -140,29 +140,38 @@ times (S n) m = times n m + m
 
 -- power / exponentiation
 pow :: Nat -> Nat -> Nat
-pow = undefined
+pow _ O = S O
+pow n (S m) = pow n m * n
 
 exp :: Nat -> Nat -> Nat
-exp = undefined
+exp = pow
 
 (<^>) :: Nat -> Nat -> Nat
-(<^>) = undefined
+(<^>) = exp
 
 -- quotient
 (</>) :: Nat -> Nat -> Nat
-(</>) = undefined
+_ </> O = error "Division by zero"
+O </> _ = O
+n </> m = if m <= n 
+    then
+        S ((n -* m) </> m )
+    else
+        O
 
 -- remainder
 (<%>) :: Nat -> Nat -> Nat
-(<%>) = undefined
+n <%> m = n -* ((n </> m) * m)
 
 -- euclidean division
 eucdiv :: (Nat, Nat) -> (Nat, Nat)
-eucdiv = undefined
+eucdiv (_, O) = error "Division by zero"
+eucdiv (n, m) = (n </> m, n <%> m) 
 
 -- divides
 (<|>) :: Nat -> Nat -> Bool
-(<|>) = undefined
+O <|> O = True
+n <|> m = isZero (m <%> n)  
 
 divides = (<|>)
 
