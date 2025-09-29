@@ -187,15 +187,26 @@ dist (S n) (S m) = dist n m
 (|-|) = dist
 
 factorial :: Nat -> Nat
-factorial = undefined
+factorial O = S O
+factorial (S n) = S n <*> factorial n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
-sg = undefined
+sg O = O
+sg (S _) = S O 
 
 -- lo b a is the floor of the logarithm base b of a
 lo :: Nat -> Nat -> Nat
-lo = undefined
+lo O O = undefined
+lo (S O) (S O) = S O
+lo (S O) _ = undefined
+lo n m = lo' n m O
+    where
+        lo' n m c = if (n <^> c) <= m
+            then
+                lo' n m (S c)
+            else
+                c
 
 
 ----------------------------------------------------------------
@@ -206,7 +217,12 @@ lo = undefined
 -- Do NOT use the following functions in the definitions above!
 
 toNat :: Integral a => a -> Nat
-toNat = undefined
+toNat 0 = O
+toNat i = if i < 0 
+    then 
+        undefined
+    else
+        S (toNat (i - 1))
 
 fromNat :: Integral a => Nat -> a
 fromNat = undefined
