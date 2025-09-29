@@ -45,7 +45,9 @@ instance Eq Nat where
 
 instance Ord Nat where
 
-    (<=) = undefined
+    O <= _ = True
+    (S n) <= (S m) = n <= m
+    _ <= _ = False 
 
     -- Ord does not REQUIRE defining min and max.
     -- Howevener, you should define them WITHOUT using (<=).
