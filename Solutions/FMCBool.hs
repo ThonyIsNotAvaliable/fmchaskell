@@ -52,25 +52,30 @@ infixr 2 ||
 
 -- NAND (Sheffer stroke)
 (/|\) :: Bool -> Bool -> Bool
-(/|\) = undefined
+True /|\ True = False
+_ /|\ _ = True
 
 infixr 2 /|\
 
 -- NOR (aka: Peirce arrow or Quine dagger)
 (\|/) :: Bool -> Bool -> Bool
-(\|/) = undefined
+True \|/ _ = False
+_ \|/ True = False
+_ \|/ _ = True
 
 infixr 2 \|/
 
 -- XOR (exclusive disjunction)
 (<=/=>) :: Bool -> Bool -> Bool
-(<=/=>) = undefined
+True <=/=> True = False
+False <=/=> False = False
+otherwise = True
 
 infixr 2 <=/=>
 
 -- boolean negation
 not :: Bool -> Bool
-not = undefined
+not a = a <=/=> True
 
 -- if-then-else expression
 ifThenElse :: Bool -> a -> a -> a
