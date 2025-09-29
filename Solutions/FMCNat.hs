@@ -220,7 +220,7 @@ toNat :: Integral a => a -> Nat
 toNat 0 = O
 toNat i = if i < 0 
     then 
-        undefined
+        error "Nat type does not support this value"
     else
         S (toNat (i - 1))
 
@@ -234,12 +234,12 @@ instance Num Nat where
 
     (+) = (<+>)
     (*) = (<*>)
-    --(-) = (<->)
-    (-) = monus
+    (-) = (-*)
+    --(-) = monus
     abs n = n
     signum = sg
     fromInteger x
       | x < 0     = undefined
-      | x == 0    = undefined
-      | otherwise = undefined
+      | x == 0    = O
+      | otherwise = toNat x
 
