@@ -37,13 +37,16 @@ instance Enum Bool where
 
 -- conjunction (AND)
 (&&) :: Bool -> Bool -> Bool
-(&&) = undefined
+True && True = True
+_ && _ = False 
 
 infixr 3 &&
 
 -- disjunction (OR)
 (||) :: Bool -> Bool -> Bool
-(||) = undefined
+True || _ = True
+_ || True = True
+_ || _ = False
 
 infixr 2 ||
 
