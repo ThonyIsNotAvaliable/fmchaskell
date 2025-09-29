@@ -125,11 +125,15 @@ monus n O = n
 monus (S n) (S m) = monus n m
 
 (-*) :: Nat -> Nat -> Nat
-(-*) = undefined
+(-*) = monus
 
 -- multiplication
 times :: Nat -> Nat -> Nat
-times = undefined
+times O _ = O
+times _ O = O
+times (S O) m = m
+times n (S O) = n
+times (S n) m = times n m + m
 
 (<*>) :: Nat -> Nat -> Nat
 (<*>) = times
