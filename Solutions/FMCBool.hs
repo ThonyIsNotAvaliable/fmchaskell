@@ -31,9 +31,12 @@ instance Show Bool where
 
 instance Enum Bool where
 
-    toEnum  = undefined
+    toEnum 0 = False
+    toEnum 1 = True
+    toEnum _ = undefined 
 
-    fromEnum  = undefined
+    fromEnum False = 0
+    fromEnum True = 1
 
 -- conjunction (AND)
 (&&) :: Bool -> Bool -> Bool
