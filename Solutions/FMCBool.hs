@@ -84,19 +84,20 @@ ifThenElse False _ b = b
 
 -- logical "implies"
 (==>) :: Bool -> Bool -> Bool
-(==>) = undefined
+True ==> False = False
+_ ==> _ = True 
 
 infixr 1 ==>
 
 -- logical "implied by"
 (<==) :: Bool -> Bool -> Bool
-(<==) = undefined
+a <== b = b ==> a
 
 infixl 1 <==
 
 -- logical equivalence
 (<=>) :: Bool -> Bool -> Bool
-(<=>) = undefined
+a <=> b = (a ==> b) && (a <== b) 
 
 infixr 1 <=>
 
