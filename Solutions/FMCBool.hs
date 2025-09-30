@@ -33,7 +33,7 @@ instance Enum Bool where
 
     toEnum 0 = False
     toEnum 1 = True
-    toEnum _ = undefined 
+    toEnum _ = error "bigger than one value"
 
     fromEnum False = 0
     fromEnum True = 1
