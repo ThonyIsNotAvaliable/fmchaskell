@@ -14,6 +14,12 @@ import qualified Prelude   as P
 import qualified Data.List as L
 import qualified Data.Char as C
 
+
+--Sugar for ease of testing
+testAssist :: Num a => [a]
+testAssist = [1, 2, 3, 4, 5, 6]
+
+
 {- import qualified ... as ... ?
 
 To use a function from a qualified import
@@ -74,27 +80,36 @@ length [] = 0
 length (_ : xs) =  1 + length xs 
 
 sum :: Num a => [a] -> a
-sum = undefined
+sum [] = 0
+sum (x : xs) = x + sum xs 
 
 product :: Num a => [a] -> a
-product = undefined
+product [] = 0
+product [x] = x
+product (x : xs) = x * product xs
+
+-- (snoc is cons written backwards)
+-- Alteração no lugar para uso em reverse.
+
+snoc :: a -> [a] -> [a]
+snoc x [] = [x]
+snoc xi (xl : xs) = xl : snoc xi xs
+
+(<:) :: [a] -> a -> [a]
+(<:) = flip snoc
 
 reverse :: [a] -> [a]
-reverse = undefined
+reverse [] = []
+reverse (x : xs) = snoc x (reverse xs)
+
 
 (++) :: [a] -> [a] -> [a]
-(++) = undefined
+[] ++ ys = ys
+(x : xs) ++ ys = x : (xs ++ ys)
 
 -- right-associative for performance!
 -- (what?!)
 infixr 5 ++
-
--- (snoc is cons written backwards)
-snoc :: a -> [a] -> [a]
-snoc = undefined
-
-(<:) :: [a] -> a -> [a]
-(<:) = flip snoc
 
 -- different implementation of (++)
 (+++) :: [a] -> [a] -> [a]
@@ -166,9 +181,19 @@ infixl 5 +++
 
 -- transpose
 
+simplifyStr :: String -> String
+simplifyStr [x] = [x]
+simplifyStr (x : xs) = if 
+(x == ' ' || x == '.') || x == '\'' || x == ','
+then
+  simplifyStr xs
+else
+  C.toLower x : simplifyStr xs
+
 -- checks if the letters of a phrase form a palindrome (see below for examples)
 palindrome :: String -> Bool
-palindrome = undefined
+palindrome [] = True
+palindrome xs = simplifyStr xs == reverse (simplifyStr xs)
 
 {-
 
