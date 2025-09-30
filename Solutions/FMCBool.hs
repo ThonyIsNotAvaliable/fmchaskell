@@ -69,7 +69,7 @@ infixr 2 \|/
 (<=/=>) :: Bool -> Bool -> Bool
 True <=/=> True = False
 False <=/=> False = False
-otherwise = True
+_ <=/=> _ = True
 
 infixr 2 <=/=>
 
@@ -79,7 +79,8 @@ not a = a <=/=> True
 
 -- if-then-else expression
 ifThenElse :: Bool -> a -> a -> a
-ifThenElse = undefined
+ifThenElse True a _ = a
+ifThenElse False _ b = b 
 
 -- logical "implies"
 (==>) :: Bool -> Bool -> Bool
