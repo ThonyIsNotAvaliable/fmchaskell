@@ -44,7 +44,7 @@ flip f a b = f b a
 (.) :: (b -> c) -> (a -> b) -> (a -> c)
 (.) f g a = f (g a)
 
--- f ° g (a) === f(g(a))
+-- f ° g (a) =def= f(g(a))
 
 -- (.>) is composition but in diagramatic notation (should be ; but Haskell forbids)
 (.>) = flip (.)

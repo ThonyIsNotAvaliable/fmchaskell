@@ -3,7 +3,7 @@
 module FMCList where
 
 import Prelude
-    ( Char , String , Int , Integer , Double , Float , Bool(..)
+    ( Char , String, Int , Integer , Double , Float , Bool(..)
     , Num(..) , Integral(..) , Enum(..) , Ord(..) , Eq(..)
     , not , (&&) , (||)
     , (.) , ($)
@@ -13,7 +13,6 @@ import Prelude
 import qualified Prelude   as P
 import qualified Data.List as L
 import qualified Data.Char as C
-
 
 --Sugar for ease of testing
 testAssist :: Num a => [a]
@@ -121,10 +120,30 @@ xs +++ (y:ys) = (xs +++ [y]) +++ ys
 -- (hmm?!)
 infixl 5 +++
 
--- minimum :: Ord a => [a] -> a
--- maximum :: Ord a => [a] -> a
+minimum :: Ord a => [a] -> a
+minimum [] = error "Empty list"
+minimum [x] = x
+minimum [x, x'] = if x < x'
+  then x
+  else x'
+minimum (x : xs) = minimum (x : [minimum  xs])
 
--- take
+
+maximum :: Ord a => [a] -> a
+maximum [] = error "Empty list"
+maximum [x] = x
+
+maximum [x, x'] = if x > x'
+  then x
+  else x'
+maximum (x : xs) = maximum (x : [maximum  xs])
+
+
+take :: Int -> [b] -> [b]
+take _ [] = error "Index out of bounds"
+take 0 _ = []
+take i (x : xs) = x : take (i - 1) xs
+
 -- drop
 
 -- takeWhile
