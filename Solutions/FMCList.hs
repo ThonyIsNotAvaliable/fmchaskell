@@ -151,7 +151,8 @@ take i (x : xs) = x : take (i - 1) xs
 
 tails :: [a] -> [[a]]
 tails [] = [[]]
-tails (_ : xs) = tail xs : tails xs
+tails [x] = [x] : [[]]
+tails (x : xs) = (x : xs) : tails xs
 
 init :: [a] -> [a]
 init [_] = []
@@ -159,14 +160,24 @@ init (x : xs) = x : init xs
 
 -- inits
 inits :: [a] -> [[a]]
-inits [] = []
-inits [_] = [] 
-inits (x : xs) = (x : init xs) : inits xs
+inits [] = [[]]
+inits (x : xs) = [] : map (x : ) (inits xs)
 
 -- subsequences
 
--- any
+any :: (a -> Bool) -> [a] -> Bool
+any f [] = False
+any f [x] = f x
+any f (x : xs) = f x || any f xs
+
+
 -- all
+all :: (a -> Bool) -> [a] -> Bool
+all f [] = False
+all f [x] = f x
+all f (x : xs) = f x && all f xs
+
+
 
 -- and
 -- or
