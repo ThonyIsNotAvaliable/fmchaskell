@@ -180,7 +180,17 @@ all f (x : xs) = f x && all f xs
 
 
 -- and
+and :: [Bool] -> Bool
+and [] = True
+and [b] = b
+and (b : bs) = b && and bs
+
 -- or
+or :: [Bool] -> Bool
+or [] = True
+or [b] = b
+or (b : bs) = b || or bs
+
 
 -- concat
 
