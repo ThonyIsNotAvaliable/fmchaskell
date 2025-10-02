@@ -9,11 +9,13 @@ import Prelude hiding
     )
 
 
-testSug :: (Int, Int) -> Int
-testSug (a, b) = a + b 
+testCurry :: (Int, Int) -> Int
+testCurry (a, b) = a + b 
 
-testSug' :: Int -> Int -> Int
-testSug' a b = a + b
+testUncurry :: Int -> Int -> Int
+testUncurry a b = a + b
+
+
 
 -- use your mind to infer the types, don't cheat!
 
@@ -34,9 +36,11 @@ flip :: (a -> b -> c) -> (b -> a -> c)
 flip f a b = f b a
 
 -- (.) takes two composable functions and returns their composition
+(.) :: (b -> c) -> (a -> b) -> (a -> c)
+(.) f g a = f (g a)
 
 -- (.>) is composition but in diagramatic notation (should be ; but Haskell forbids)
---(.>) = flip (.)
+(.>) = flip (.)
 
 -- ($) takes a function and a suitable argument and applies the function to the argument
 -- think: why would we ever want that?
