@@ -170,7 +170,12 @@ take i (x : xs) = x : take (i - 1) xs
 
 -- (!!)
 
--- filter
+filter :: (a -> Bool) -> [a] -> [a]
+filter _ [] = []
+filter f (x : xs) = case f x of
+  True ->  x : filter f xs
+  False -> filter f xs
+
 map :: (a -> b) -> [a] -> [b]
 map _ [] = []
 map f (x : xs) = f x : map f xs
