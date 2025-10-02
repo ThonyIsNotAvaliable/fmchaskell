@@ -29,7 +29,9 @@ uncurry f (a, b) = f a b
  
 
 -- flip takes a (currified) binary function
--- and returns one that behaves the same but takes its arguments in the opposite order
+-- and returns one that behaves the same but takes its arguments in the opposite orderi
+flip :: (a -> b -> c) -> (b -> a -> c)
+flip f a b = f b a
 
 -- (.) takes two composable functions and returns their composition
 
