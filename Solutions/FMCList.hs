@@ -151,6 +151,9 @@ take i (x : xs) = x : take (i - 1) xs
 
 -- tails
 -- init
+init :: [a] -> [a]
+init [_] = []
+init (x : xs) = x : init xs
 -- inits
 
 -- subsequences
