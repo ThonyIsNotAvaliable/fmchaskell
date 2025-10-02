@@ -181,20 +181,22 @@ infixl 5 +++
 
 -- transpose
 
-simplifyStr :: String -> String
-simplifyStr [x] = [x]
-simplifyStr (x : xs) = if 
-(x == ' ' || x == '.') || x == '\'' || x == ','
-then
-  simplifyStr xs
-else
-  C.toLower x : simplifyStr xs
 
 -- checks if the letters of a phrase form a palindrome (see below for examples)
 palindrome :: String -> Bool
 palindrome [] = True
 palindrome xs = simplifyStr xs == reverse (simplifyStr xs)
+  where
+    simplifyStr :: String -> String
+    simplifyStr [x] = [x]
+    simplifyStr (x : xs) = if C.isAlpha x
+    then
+      C.toLower x : simplifyStr xs
+    else
+      simplifyStr xs
 
+
+    
 {-
 
 Examples of palindromes:
