@@ -150,6 +150,10 @@ take i (x : xs) = x : take (i - 1) xs
 -- dropWhile
 
 -- tails
+tails :: [a] -> [[a]]
+tails [] = []
+tails (_: xs) = xs : tails xs
+
 -- init
 init :: [a] -> [a]
 init [_] = []
