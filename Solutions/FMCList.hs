@@ -149,16 +149,19 @@ take i (x : xs) = x : take (i - 1) xs
 -- takeWhile
 -- dropWhile
 
--- tails
 tails :: [a] -> [[a]]
-tails [] = []
-tails (_: xs) = xs : tails xs
+tails [] = [[]]
+tails (_ : xs) = tail xs : tails xs
 
--- init
 init :: [a] -> [a]
 init [_] = []
 init (x : xs) = x : init xs
+
 -- inits
+inits :: [a] -> [[a]]
+inits [] = []
+inits [_] = [] 
+inits (x : xs) = (x : init xs) : inits xs
 
 -- subsequences
 
