@@ -167,7 +167,16 @@ dropWhile f (x : xs) = if f x
 then
   dropWhile f xs
 else
+  xs
+
+dropWhile' :: (a -> Bool) -> [a] -> [a]
+dropWhile' _ [] = []
+dropWhile' f (x : xs) = if f x 
+then
+  dropWhile' f xs
+else
   x : xs
+
 
 
 tails :: [a] -> [[a]]
@@ -330,10 +339,13 @@ else
 -- break
 break :: (a -> Bool) -> [a] -> ([a], [a])
 break _ [] = ([], [])
-break f xs = (takeWhile (not . f) xs, dropWhile (not . f) xs)
+break f xs = (takeWhile (not . f) xs, dropWhile' (not . f) xs)
 
 
 -- lines
+lines :: String -> [String]
+lines [] = []
+lines (c : s) = takeWhile (/= '\n') (c : s) : lines (dropWhile (/= '\n') s) 
 -- words
 -- unlines
 -- unwords
