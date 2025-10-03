@@ -151,7 +151,24 @@ drop 0 xs = xs
 drop n (_ : xs) = drop (n - 1) xs 
 
 -- takeWhile
+takeWhile :: (a -> Bool) -> [a] -> [a]
+takeWhile _ [] = []
+takeWhile f (x : xs) = if f x 
+then
+  x : takeWhile f xs
+else
+  []
+
+  
 -- dropWhile
+dropWhile :: (a -> Bool) -> [a] -> [a]
+dropWhile _ [] = []
+dropWhile f (x : xs) = if f x 
+then
+  dropWhile f xs
+else
+  xs
+
 
 tails :: [a] -> [[a]]
 tails [] = [[]]
