@@ -236,6 +236,12 @@ replicate 0 _ = []
 replicate n x = x : replicate (n - 1) x
 -- replicate
 
+last :: [a] -> a
+last [] = error "Empty list"
+last [x] = x
+last (_ : xs) = last xs
+
+
 -- isPrefixOf
 isPrefixOf :: Eq a => [a] -> [a] -> Bool
 isPrefixOf _ [] = False
@@ -243,7 +249,12 @@ isPrefixOf [] _ = True
 isPrefixOf (x : xs) (y : ys) = x == y && isPrefixOf xs ys
 
 
--- isInfixOf
+-- isInfixOf | Not Done
+isInfixOf :: Eq a => [a] -> [a] -> Bool
+isInfixOf _ [] = False
+isInfixOf [] _ = True
+isInfixOf xs ys = isPrefixOf (reverse xs) (reverse ys)
+
 -- isSuffixOf
 
 -- zip
