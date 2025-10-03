@@ -253,9 +253,17 @@ isPrefixOf (x : xs) (y : ys) = x == y && isPrefixOf xs ys
 isInfixOf :: Eq a => [a] -> [a] -> Bool
 isInfixOf _ [] = False
 isInfixOf [] _ = True
-isInfixOf xs ys = isPrefixOf (reverse xs) (reverse ys)
+isInfixOf xs (y : ys) = 
+  case isPrefixOf xs (y : ys) of
+    True  -> True
+    False -> isInfixOf xs ys
 
 -- isSuffixOf
+isSuffixOf :: Eq a => [a] -> [a] -> Bool
+isSuffixOf _ [] = False
+isSuffixOf [] _ = True
+isSuffixOf xs ys = isPrefixOf (reverse xs) (reverse ys)
+
 
 -- zip
 -- zipWith
