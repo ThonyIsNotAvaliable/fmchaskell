@@ -167,7 +167,7 @@ dropWhile f (x : xs) = if f x
 then
   dropWhile f xs
 else
-  xs
+  x : xs
 
 
 tails :: [a] -> [[a]]
@@ -312,10 +312,26 @@ nub (x : xs) = x : filter (/= x) (nub xs)
 
 
 -- splitAt
+splitAt :: Int -> [a] -> ([a], [a])
+splitAt 0 [] = ([], [])
+splitAt _ [] = error "Index out of bounds"
+splitAt n xs = if length xs == n
+then
+  (take n xs, drop n xs)
+else
+  (xs, [])
+
 -- what is the problem with the following?:
 -- splitAt n xs  =  (take n xs, drop n xs)
+--if n == length xs 
+--   then crash ()
+--   else normal ()
 
 -- break
+break :: (a -> Bool) -> [a] -> ([a], [a])
+break _ [] = ([], [])
+break f xs = (takeWhile (not . f) xs, dropWhile (not . f) xs)
+
 
 -- lines
 -- words
