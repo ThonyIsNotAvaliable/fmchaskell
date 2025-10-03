@@ -230,6 +230,10 @@ cycle xs = xs ++ cycle xs
 
 repeat :: a -> [a]
 repeat x = x : repeat x
+
+replicate :: Int -> a -> [a]
+replicate 0 _ = []
+replicate n x = x : replicate (n - 1) x
 -- replicate
 
 -- isPrefixOf
