@@ -279,6 +279,10 @@ zipWith _ _ [] = []
 zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys 
 
 -- intercalate
+intercalate :: [a] -> [[a]] -> [[a]]
+intercalate _ [] = []
+intercalate _ [y] = [y]
+intercalate xs (y : ys) = y : xs : intercalate xs ys
 -- nub
 
 -- splitAt
