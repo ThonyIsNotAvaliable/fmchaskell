@@ -193,11 +193,24 @@ or (b : bs) = b || or bs
 
 
 -- concat
+--concat :: [a] -> [a] -> [a]
+--concat [] y = y
+--concat (x : xs) ys = x : concat xs ys
+concat = (++)
+
 
 -- elem using the funciton 'any' above
+elem :: Eq a => a -> [a] -> Bool
+elem _ [] = False
+elem n xs = any (n == ) xs
 
 -- elem': same as elem but elementary definition
 -- (without using other functions except (==))
+
+elem' :: Eq a => a -> [a] -> Bool
+elem' _ [] = False
+elem' n (x : xs) = n == x || elem' n xs
+
 
 -- (!!)
 
