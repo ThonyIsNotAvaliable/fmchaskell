@@ -360,11 +360,7 @@ palindrome xs = simplifyStr xs == reverse (simplifyStr xs)
   where
     simplifyStr :: String -> String
     simplifyStr [x] = [x]
-    simplifyStr (x : xs) = if C.isAlpha x
-    then
-      C.toLower x : simplifyStr xs
-    else
-      simplifyStr xs
+    simplifyStr xs = map C.toLower (filter C.isAlpha xs) 
 
 
     
