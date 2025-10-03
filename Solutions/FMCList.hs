@@ -145,6 +145,10 @@ take 0 _ = []
 take i (x : xs) = x : take (i - 1) xs
 
 -- drop
+drop :: Int -> [a] -> [a]
+drop _ [] = []
+drop 0 xs = xs
+drop n (_ : xs) = drop (n - 1) xs 
 
 -- takeWhile
 -- dropWhile
