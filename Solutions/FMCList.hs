@@ -304,7 +304,12 @@ intercalate :: [a] -> [[a]] -> [[a]]
 intercalate _ [] = []
 intercalate _ [y] = [y]
 intercalate xs (y : ys) = y : xs : intercalate xs ys
+
 -- nub
+nub :: Eq a => [a] -> [a]
+nub [] = []
+nub (x : xs) = x : filter (/= x) (nub xs)
+
 
 -- splitAt
 -- what is the problem with the following?:
