@@ -194,6 +194,11 @@ inits [] = [[]]
 inits (x : xs) = [] : map (x : ) (inits xs)
 
 -- subsequences Need to do
+subsequences :: [a] -> [[a]]
+subsequences [] = [[]]
+subsequences (x : xs) = tailSub ++ map (x : ) tailSub
+  where
+    tailSub = subsequences xs
 
 any :: (a -> Bool) -> [a] -> Bool
 any f [] = False
