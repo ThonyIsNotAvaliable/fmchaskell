@@ -67,7 +67,7 @@ head [] = error "Nil list"
 head (x : _) = x
 
 tail :: [a] -> [a]
-tail [] = error "Nil list"
+tail [] = []
 tail (_ : xs) = xs 
 
 null :: [a] -> Bool
@@ -193,7 +193,7 @@ inits :: [a] -> [[a]]
 inits [] = [[]]
 inits (x : xs) = [] : map (x : ) (inits xs)
 
--- subsequences
+-- subsequences Need to do
 
 any :: (a -> Bool) -> [a] -> Bool
 any f [] = False
@@ -333,8 +333,10 @@ else
 -- what is the problem with the following?:
 -- splitAt n xs  =  (take n xs, drop n xs)
 --if n == length xs 
---   then crash ()
---   else normal ()
+--   then 
+--        crash ()
+--   else 
+--        normal ()
 
 -- break
 break :: (a -> Bool) -> [a] -> ([a], [a])
@@ -346,12 +348,36 @@ break f xs = (takeWhile (not . f) xs, dropWhile' (not . f) xs)
 lines :: String -> [String]
 lines [] = []
 lines (c : s) = takeWhile (/= '\n') (c : s) : lines (dropWhile (/= '\n') s) 
+
+
 -- words
+words :: String -> [String]
+words [] = []
+words (c : s) = takeWhile isNotSpace (c : s) : words (dropWhile isNotSpace s)
+  where
+    isNotSpace c = not (c == '\n' || c == ' ')
+
 -- unlines
+unlines :: [String] -> String
+unlines [] = []
+unlines (si : s) = (si ++ ['\n']) ++ unlines s
+
 -- unwords
+unwords :: [String] -> String
+unwords [] = []
+unwords (si : s) = si ++ " " ++ map addSpaceInLine (unwords s) 
+  where
+    addSpaceInLine c = case c of
+      '\n'-> ' '
+      _   -> c
 
 -- transpose
-
+transpose :: [[a]] -> [[a]]
+transpose [] = []
+transpose ([] : xss) = transpose xss
+transpose ((x : xs) : xss) = (x : map head xss) : transpose (xs : map tail xss)   
+-- Subsequences after this
+    
 
 -- checks if the letters of a phrase form a palindrome (see below for examples)
 palindrome :: String -> Bool
